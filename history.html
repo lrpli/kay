@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our History — Kaysville Elementary PTO</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --color-primary: #1B5EA6;
+      --color-secondary: #F5C842;
+      --color-accent: #F47B2A;
+      --color-bg: #FFFFFF;
+      --color-bg-alt: #F0F6FF;
+      --color-text: #1A2640;
+      --color-text-light: #5A6A7A;
+      --color-top-bar: #0F3D6B;
+      --color-top-bar-text: #FFFFFF;
+      --color-nav: #1B5EA6;
+      --color-footer: #0F3D6B;
+      --color-footer-text: #D0E4FF;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Lato', sans-serif; color: var(--color-text); background: var(--color-bg); line-height: 1.7; }
+    h1, h2, h3, h4 { font-family: 'Nunito', sans-serif; line-height: 1.2; }
+    a { color: inherit; text-decoration: none; }
+
+    .top-bar { background: var(--color-top-bar); color: var(--color-top-bar-text); font-family: 'Lato', sans-serif; font-size: 0.82rem; padding: 0.45rem 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.4rem; letter-spacing: 0.02em; }
+    .top-bar a { color: var(--color-top-bar-text); opacity: 0.9; transition: opacity .2s; }
+    .top-bar a:hover { opacity: 1; }
+    .top-bar-item { display: flex; align-items: center; gap: 0.4rem; }
+    .top-bar-item svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+    .navbar { position: sticky; top: 0; z-index: 1000; background: var(--color-nav); box-shadow: 0 2px 12px rgba(0,0,0,.15); }
+    .nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .nav-brand { display: flex; align-items: center; gap: 0.75rem; font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 1.2rem; color: #fff; }
+    .nav-logo-icon { width: 40px; height: 40px; background: var(--color-secondary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
+    .nav-links { display: flex; list-style: none; gap: 0.25rem; }
+    .nav-links a { color: rgba(255,255,255,0.88); font-family: 'Nunito', sans-serif; font-weight: 600; font-size: 0.92rem; padding: 0.4rem 0.9rem; border-radius: 6px; transition: background .2s, color .2s; }
+    .nav-links a:hover, .nav-links a.active { background: rgba(255,255,255,.15); color: #fff; }
+    .nav-links a.active { background: var(--color-secondary); color: var(--color-top-bar); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .hamburger span { width: 26px; height: 3px; background: #fff; border-radius: 3px; transition: transform .3s, opacity .3s; display: block; }
+    .hamburger.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+    .page-hero { background: linear-gradient(135deg, #0F3D6B 0%, #1B5EA6 60%, #2176C4 100%); color: #fff; padding: 4.5rem 2rem 4rem; text-align: center; }
+    .page-hero-badge { display: inline-block; background: var(--color-secondary); color: var(--color-top-bar); font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.3rem 1rem; border-radius: 20px; margin-bottom: 1rem; }
+    .page-hero h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 900; margin-bottom: 0.75rem; }
+    .page-hero p { font-size: 1.05rem; opacity: 0.85; max-width: 540px; margin: 0 auto; font-weight: 300; }
+
+    section { padding: 5rem 2rem; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-label { font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-accent); margin-bottom: 0.5rem; }
+    .section-title { font-size: clamp(1.8rem, 3.5vw, 2.5rem); font-weight: 900; color: var(--color-text); margin-bottom: 1rem; }
+
+    /* Founding Story */
+    .founding { background: var(--color-bg-alt); }
+    .founding-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+    .founding-text p { font-size: 1rem; color: var(--color-text-light); margin-bottom: 1rem; line-height: 1.8; }
+    .founding-highlight {
+      background: var(--color-primary);
+      color: #fff;
+      border-radius: 20px;
+      padding: 2.5rem;
+    }
+    .founding-highlight h3 { font-size: 1.3rem; font-weight: 800; margin-bottom: 0.75rem; }
+    .founding-highlight p { opacity: 0.85; font-size: 0.95rem; line-height: 1.75; }
+    .founding-highlight .big-stat { font-family: 'Nunito', sans-serif; font-size: 3.5rem; font-weight: 900; color: var(--color-secondary); margin-bottom: 0.25rem; }
+
+    /* Timeline */
+    .timeline-section { background: var(--color-bg); }
+    .timeline {
+      position: relative;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0; bottom: 0;
+      width: 3px;
+      background: linear-gradient(to bottom, var(--color-secondary), var(--color-primary));
+      transform: translateX(-50%);
+      border-radius: 3px;
+    }
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 1fr 60px 1fr;
+      gap: 0;
+      align-items: center;
+      margin-bottom: 3rem;
+    }
+    .timeline-item:last-child { margin-bottom: 0; }
+    .timeline-content {
+      background: #fff;
+      border-radius: 16px;
+      padding: 1.75rem;
+      box-shadow: 0 2px 16px rgba(27,94,166,.09);
+      transition: transform .25s, box-shadow .25s;
+    }
+    .timeline-content:hover { transform: translateY(-3px); box-shadow: 0 6px 28px rgba(27,94,166,.15); }
+    .timeline-item:nth-child(odd) .timeline-content { grid-column: 1; grid-row: 1; text-align: right; }
+    .timeline-item:nth-child(odd) .timeline-dot { grid-column: 2; grid-row: 1; }
+    .timeline-item:nth-child(odd) .timeline-spacer { grid-column: 3; grid-row: 1; }
+    .timeline-item:nth-child(even) .timeline-spacer { grid-column: 1; grid-row: 1; }
+    .timeline-item:nth-child(even) .timeline-dot { grid-column: 2; grid-row: 1; }
+    .timeline-item:nth-child(even) .timeline-content { grid-column: 3; grid-row: 1; text-align: left; }
+    .timeline-dot {
+      display: flex; align-items: center; justify-content: center;
+      z-index: 1;
+    }
+    .dot-inner {
+      width: 44px; height: 44px;
+      background: var(--color-secondary);
+      border: 4px solid #fff;
+      border-radius: 50%;
+      box-shadow: 0 2px 12px rgba(245,200,66,.4);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+    }
+    .timeline-year {
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: 0.35rem;
+    }
+    .timeline-content h3 { font-size: 1.05rem; font-weight: 800; margin-bottom: 0.4rem; }
+    .timeline-content p { font-size: 0.9rem; color: var(--color-text-light); line-height: 1.65; }
+
+    footer { background: var(--color-footer); color: var(--color-footer-text); padding: 3.5rem 2rem 1.5rem; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 2.5rem; margin-bottom: 2.5rem; }
+    .footer-brand h3 { font-size: 1.2rem; font-weight: 800; color: #fff; margin-bottom: 0.5rem; }
+    .footer-brand p { font-size: 0.88rem; opacity: 0.75; line-height: 1.7; }
+    .footer-col h4 { font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-secondary); margin-bottom: 1rem; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 0.5rem; }
+    .footer-col ul li a { font-size: 0.88rem; opacity: 0.75; transition: opacity .2s; }
+    .footer-col ul li a:hover { opacity: 1; }
+    .social-links { display: flex; gap: 0.75rem; margin-top: 1rem; }
+    .social-icon { width: 36px; height: 36px; background: rgba(255,255,255,.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; transition: background .2s; color: #fff; }
+    .social-icon:hover { background: var(--color-secondary); color: var(--color-top-bar); }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,.1); padding-top: 1.25rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; font-size: 0.8rem; opacity: 0.6; }
+
+    .fade-in { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+    .fade-in.visible { opacity: 1; transform: none; }
+    a:focus-visible, button:focus-visible { outline: 3px solid var(--color-secondary); outline-offset: 3px; border-radius: 4px; }
+
+    @media (max-width: 1024px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 768px) {
+      .nav-links { display: none; flex-direction: column; position: absolute; top: 64px; left: 0; right: 0; background: var(--color-nav); padding: 1rem; box-shadow: 0 8px 24px rgba(0,0,0,.15); }
+      .nav-links.open { display: flex; }
+      .hamburger { display: flex; }
+      .top-bar { justify-content: center; text-align: center; }
+      .footer-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+      .founding-grid { grid-template-columns: 1fr; }
+      .timeline::before { left: 20px; }
+      .timeline-item { grid-template-columns: 40px 1fr; }
+      .timeline-item:nth-child(odd) .timeline-content,
+      .timeline-item:nth-child(even) .timeline-content { grid-column: 2; text-align: left; }
+      .timeline-item:nth-child(odd) .timeline-dot,
+      .timeline-item:nth-child(even) .timeline-dot { grid-column: 1; }
+      .timeline-item:nth-child(odd) .timeline-spacer,
+      .timeline-item:nth-child(even) .timeline-spacer { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-bar">
+    <div class="top-bar-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      <a href="mailto:info@kaysvillepto.us">info@kaysvillepto.us</a>
+    </div>
+    <div class="top-bar-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      <a href="http://kaysvillepto.us/" target="_blank" rel="noopener">kaysvillepto.us</a>
+    </div>
+  </div>
+
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a class="nav-brand" href="index.html">
+        <div class="nav-logo-icon" aria-hidden="true">🍎</div>
+        <span>Kaysville Elementary PTO</span>
+      </a>
+      <button class="hamburger" aria-label="Toggle navigation" aria-expanded="false" onclick="toggleNav(this)">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks" role="list">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="mission.html">Mission</a></li>
+        <li><a href="history.html" class="active">History</a></li>
+        <li><a href="projects.html">Programs</a></li>
+        <li><a href="team.html">Team</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="page-hero">
+    <div class="page-hero-badge">Our Story</div>
+    <h1>History of the PTO</h1>
+    <p>From humble beginnings to a thriving school community — the story of Kaysville Elementary PTO.</p>
+  </div>
+
+  <!-- FOUNDING STORY -->
+  <section class="founding">
+    <div class="section-inner">
+      <div class="founding-grid">
+        <div class="founding-text fade-in">
+          <div class="section-label">How It Started</div>
+          <h2 class="section-title">Built by Parents, for Students</h2>
+          <p>The Kaysville Elementary PTO was born from a simple idea: that parents and teachers working side by side could make a meaningful difference in the life of every student. A small group of dedicated families at Kaysville Elementary came together with a shared belief — their school deserved more support, more celebration, and more connection.</p>
+          <p>What started as informal gatherings to discuss classroom needs quickly grew into an organized, official Parent-Teacher Organization. Those early volunteers set the tone that still defines us today: approachable, committed, and always putting students first.</p>
+          <p>Today, the Kaysville Elementary PTO is a registered 501(c)(3) nonprofit serving hundreds of students and families in the heart of Kaysville, Utah. We are proud of how far we've come — and excited about where we're headed.</p>
+        </div>
+        <div class="founding-highlight fade-in">
+          <div class="big-stat">501(c)(3)</div>
+          <h3>Registered Nonprofit</h3>
+          <p>The Kaysville Elementary PTO is a fully registered 501(c)(3) tax-exempt nonprofit organization, making all eligible donations tax-deductible. EIN: 99-3677288.</p>
+          <br />
+          <p>Every dollar we raise goes back into programs, events, and resources that directly benefit the students and staff of Kaysville Elementary.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIMELINE -->
+  <section class="timeline-section">
+    <div class="section-inner">
+      <div class="section-label" style="text-align:center;">Milestones</div>
+      <h2 class="section-title" style="text-align:center; margin-bottom:3rem;">Our Journey Through the Years</h2>
+      <div class="timeline">
+
+        <div class="timeline-item fade-in">
+          <div class="timeline-content">
+            <div class="timeline-year">Early Years</div>
+            <h3>The First Meeting</h3>
+            <p>A small group of Kaysville Elementary parents gathered to discuss how families could better support the school. The seed of the PTO was planted.</p>
+          </div>
+          <div class="timeline-dot"><div class="dot-inner">🌱</div></div>
+          <div class="timeline-spacer"></div>
+        </div>
+
+        <div class="timeline-item fade-in">
+          <div class="timeline-spacer"></div>
+          <div class="timeline-dot"><div class="dot-inner">📋</div></div>
+          <div class="timeline-content">
+            <div class="timeline-year">Official Formation</div>
+            <h3>PTO Formally Organized</h3>
+            <p>The PTO adopted its bylaws, elected its first board of officers, and began holding regular meetings open to all Kaysville Elementary families.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item fade-in">
+          <div class="timeline-content">
+            <div class="timeline-year">Nonprofit Status</div>
+            <h3>501(c)(3) Recognition</h3>
+            <p>The IRS granted tax-exempt status under EIN 99-3677288, empowering the PTO to receive tax-deductible donations and grow its funding capacity.</p>
+          </div>
+          <div class="timeline-dot"><div class="dot-inner">🏛️</div></div>
+          <div class="timeline-spacer"></div>
+        </div>
+
+        <div class="timeline-item fade-in">
+          <div class="timeline-spacer"></div>
+          <div class="timeline-dot"><div class="dot-inner">🎉</div></div>
+          <div class="timeline-content">
+            <div class="timeline-year">First Major Event</div>
+            <h3>Annual Fun Run Launched</h3>
+            <p>The first school-wide Fun Run brought hundreds of students, parents, and teachers together — and raised funds that went straight back to classroom resources.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item fade-in">
+          <div class="timeline-content">
+            <div class="timeline-year">Growing Programs</div>
+            <h3>Teacher Appreciation Week</h3>
+            <p>The PTO expanded its teacher appreciation efforts into a full week of recognition, honoring every educator and staff member for their dedication.</p>
+          </div>
+          <div class="timeline-dot"><div class="dot-inner">🍎</div></div>
+          <div class="timeline-spacer"></div>
+        </div>
+
+        <div class="timeline-item fade-in">
+          <div class="timeline-spacer"></div>
+          <div class="timeline-dot"><div class="dot-inner">🌐</div></div>
+          <div class="timeline-content">
+            <div class="timeline-year">Digital Presence</div>
+            <h3>Website &amp; Online Outreach</h3>
+            <p>The PTO launched kaysvillepto.us, making it easier than ever for families to stay informed, volunteer, and connect with PTO leadership.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item fade-in">
+          <div class="timeline-content">
+            <div class="timeline-year">Today</div>
+            <h3>Stronger Than Ever</h3>
+            <p>With hundreds of students supported each year and a growing volunteer base, the Kaysville Elementary PTO continues to grow its impact for the entire community.</p>
+          </div>
+          <div class="timeline-dot"><div class="dot-inner">⭐</div></div>
+          <div class="timeline-spacer"></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3>Kaysville Elementary PTO</h3>
+          <p>Supporting students, teachers, and families at Kaysville Elementary School in Kaysville, Utah.</p>
+          <div class="social-links">
+            <a href="#" class="social-icon" aria-label="Facebook">f</a>
+            <a href="#" class="social-icon" aria-label="Instagram">&#9424;</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Pages</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="mission.html">Mission</a></li>
+            <li><a href="history.html">History</a></li>
+            <li><a href="projects.html">Programs</a></li>
+            <li><a href="team.html">Team</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="mailto:info@kaysvillepto.us">info@kaysvillepto.us</a></li>
+            <li><a href="#">50 N 100 E</a></li>
+            <li><a href="#">Kaysville, UT 84037</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Organization</h4>
+          <ul>
+            <li><a href="#">EIN: 99-3677288</a></li>
+            <li><a href="#">501(c)(3) Nonprofit</a></li>
+            <li><a href="http://kaysvillepto.us/" target="_blank" rel="noopener">kaysvillepto.us</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2025 Kaysville Elementary PTO. All rights reserved.</span>
+        <span>EIN 99-3677288 &mdash; Registered 501(c)(3) Nonprofit</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function toggleNav(btn) {
+      const nav = document.getElementById('navLinks');
+      const open = nav.classList.toggle('open');
+      btn.classList.toggle('open', open);
+      btn.setAttribute('aria-expanded', open);
+    }
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

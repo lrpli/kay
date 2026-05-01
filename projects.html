@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Programs — Kaysville Elementary PTO</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --color-primary: #1B5EA6;
+      --color-secondary: #F5C842;
+      --color-accent: #F47B2A;
+      --color-bg: #FFFFFF;
+      --color-bg-alt: #F0F6FF;
+      --color-text: #1A2640;
+      --color-text-light: #5A6A7A;
+      --color-top-bar: #0F3D6B;
+      --color-top-bar-text: #FFFFFF;
+      --color-nav: #1B5EA6;
+      --color-footer: #0F3D6B;
+      --color-footer-text: #D0E4FF;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Lato', sans-serif; color: var(--color-text); background: var(--color-bg); line-height: 1.7; }
+    h1, h2, h3, h4 { font-family: 'Nunito', sans-serif; line-height: 1.2; }
+    a { color: inherit; text-decoration: none; }
+
+    .top-bar { background: var(--color-top-bar); color: var(--color-top-bar-text); font-family: 'Lato', sans-serif; font-size: 0.82rem; padding: 0.45rem 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.4rem; letter-spacing: 0.02em; }
+    .top-bar a { color: var(--color-top-bar-text); opacity: 0.9; transition: opacity .2s; }
+    .top-bar a:hover { opacity: 1; }
+    .top-bar-item { display: flex; align-items: center; gap: 0.4rem; }
+    .top-bar-item svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+    .navbar { position: sticky; top: 0; z-index: 1000; background: var(--color-nav); box-shadow: 0 2px 12px rgba(0,0,0,.15); }
+    .nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .nav-brand { display: flex; align-items: center; gap: 0.75rem; font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 1.2rem; color: #fff; }
+    .nav-logo-icon { width: 40px; height: 40px; background: var(--color-secondary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
+    .nav-links { display: flex; list-style: none; gap: 0.25rem; }
+    .nav-links a { color: rgba(255,255,255,0.88); font-family: 'Nunito', sans-serif; font-weight: 600; font-size: 0.92rem; padding: 0.4rem 0.9rem; border-radius: 6px; transition: background .2s, color .2s; }
+    .nav-links a:hover, .nav-links a.active { background: rgba(255,255,255,.15); color: #fff; }
+    .nav-links a.active { background: var(--color-secondary); color: var(--color-top-bar); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .hamburger span { width: 26px; height: 3px; background: #fff; border-radius: 3px; transition: transform .3s, opacity .3s; display: block; }
+    .hamburger.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+    .page-hero { background: linear-gradient(135deg, #0F3D6B 0%, #1B5EA6 60%, #2176C4 100%); color: #fff; padding: 4.5rem 2rem 4rem; text-align: center; }
+    .page-hero-badge { display: inline-block; background: var(--color-secondary); color: var(--color-top-bar); font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.3rem 1rem; border-radius: 20px; margin-bottom: 1rem; }
+    .page-hero h1 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 900; margin-bottom: 0.75rem; }
+    .page-hero p { font-size: 1.05rem; opacity: 0.85; max-width: 540px; margin: 0 auto; font-weight: 300; }
+
+    section { padding: 5rem 2rem; }
+    .section-inner { max-width: 1200px; margin: 0 auto; }
+    .section-label { font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-accent); margin-bottom: 0.5rem; }
+    .section-title { font-size: clamp(1.8rem, 3.5vw, 2.5rem); font-weight: 900; color: var(--color-text); margin-bottom: 1rem; }
+
+    /* Programs grid */
+    .programs-section { background: var(--color-bg-alt); }
+    .programs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.75rem;
+    }
+    .program-card {
+      background: #fff;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 2px 16px rgba(27,94,166,.08);
+      transition: transform .25s, box-shadow .25s;
+      display: flex;
+      flex-direction: column;
+    }
+    .program-card:hover { transform: translateY(-5px); box-shadow: 0 10px 36px rgba(27,94,166,.15); }
+    .program-thumb {
+      height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .program-card:nth-child(1) .program-thumb { background: linear-gradient(135deg, #1B5EA6, #2176C4); }
+    .program-card:nth-child(2) .program-thumb { background: linear-gradient(135deg, #F47B2A, #F5A623); }
+    .program-card:nth-child(3) .program-thumb { background: linear-gradient(135deg, #5BC5A7, #2AB68A); }
+    .program-card:nth-child(4) .program-thumb { background: linear-gradient(135deg, #A855F7, #7C3AED); }
+    .program-card:nth-child(5) .program-thumb { background: linear-gradient(135deg, #EF4444, #DC2626); }
+    .program-card:nth-child(6) .program-thumb { background: linear-gradient(135deg, #0EA5E9, #0284C7); }
+    .program-card:nth-child(7) .program-thumb { background: linear-gradient(135deg, #F59E0B, #D97706); }
+    .program-card:nth-child(8) .program-thumb { background: linear-gradient(135deg, #10B981, #059669); }
+    .program-body { padding: 1.75rem; flex: 1; display: flex; flex-direction: column; }
+    .program-tag {
+      display: inline-block;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.7rem;
+      border-radius: 20px;
+      margin-bottom: 0.75rem;
+    }
+    .program-card:nth-child(odd) .program-tag { background: #EEF4FF; color: var(--color-primary); }
+    .program-card:nth-child(even) .program-tag { background: #FFF3E0; color: var(--color-accent); }
+    .program-body h3 { font-size: 1.15rem; font-weight: 800; margin-bottom: 0.5rem; }
+    .program-body p { font-size: 0.9rem; color: var(--color-text-light); line-height: 1.7; margin-bottom: 1rem; flex: 1; }
+    .program-impact {
+      display: flex; align-items: center; gap: 0.5rem;
+      background: var(--color-bg-alt);
+      border-radius: 8px;
+      padding: 0.6rem 0.9rem;
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+      color: var(--color-text-light);
+    }
+    .program-impact strong { color: var(--color-primary); font-family: 'Nunito', sans-serif; }
+    .btn-card {
+      display: inline-block;
+      background: var(--color-primary);
+      color: #fff;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: 0.88rem;
+      padding: 0.6rem 1.4rem;
+      border-radius: 50px;
+      transition: background .2s, transform .2s;
+      align-self: flex-start;
+    }
+    .btn-card:hover { background: #154e8c; transform: translateY(-1px); }
+
+    /* Fundraising highlight */
+    .fundraising { background: var(--color-bg); }
+    .fund-banner {
+      background: linear-gradient(135deg, var(--color-secondary) 0%, #F5A623 100%);
+      border-radius: 24px;
+      padding: 3.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+      align-items: center;
+    }
+    .fund-text h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 900; color: var(--color-top-bar); margin-bottom: 0.75rem; }
+    .fund-text p { color: rgba(15,61,107,0.8); font-size: 0.97rem; margin-bottom: 1.5rem; }
+    .btn-fund {
+      display: inline-block;
+      background: var(--color-top-bar);
+      color: #fff;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      font-size: 0.95rem;
+      padding: 0.75rem 2rem;
+      border-radius: 50px;
+      transition: transform .2s, box-shadow .2s;
+      box-shadow: 0 4px 16px rgba(15,61,107,.3);
+    }
+    .btn-fund:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(15,61,107,.4); }
+    .fund-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .fund-stat { background: rgba(255,255,255,.5); border-radius: 16px; padding: 1.5rem; text-align: center; }
+    .fund-stat .num { font-family: 'Nunito', sans-serif; font-size: 2.2rem; font-weight: 900; color: var(--color-top-bar); }
+    .fund-stat .lbl { font-size: 0.85rem; color: rgba(15,61,107,.75); }
+
+    footer { background: var(--color-footer); color: var(--color-footer-text); padding: 3.5rem 2rem 1.5rem; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 2.5rem; margin-bottom: 2.5rem; }
+    .footer-brand h3 { font-size: 1.2rem; font-weight: 800; color: #fff; margin-bottom: 0.5rem; }
+    .footer-brand p { font-size: 0.88rem; opacity: 0.75; line-height: 1.7; }
+    .footer-col h4 { font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-secondary); margin-bottom: 1rem; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 0.5rem; }
+    .footer-col ul li a { font-size: 0.88rem; opacity: 0.75; transition: opacity .2s; }
+    .footer-col ul li a:hover { opacity: 1; }
+    .social-links { display: flex; gap: 0.75rem; margin-top: 1rem; }
+    .social-icon { width: 36px; height: 36px; background: rgba(255,255,255,.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; transition: background .2s; color: #fff; }
+    .social-icon:hover { background: var(--color-secondary); color: var(--color-top-bar); }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,.1); padding-top: 1.25rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; font-size: 0.8rem; opacity: 0.6; }
+
+    .fade-in { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+    .fade-in.visible { opacity: 1; transform: none; }
+    a:focus-visible, button:focus-visible { outline: 3px solid var(--color-secondary); outline-offset: 3px; border-radius: 4px; }
+
+    @media (max-width: 1024px) { .footer-grid { grid-template-columns: 1fr 1fr; } .fund-banner { grid-template-columns: 1fr; } }
+    @media (max-width: 768px) {
+      .nav-links { display: none; flex-direction: column; position: absolute; top: 64px; left: 0; right: 0; background: var(--color-nav); padding: 1rem; box-shadow: 0 8px 24px rgba(0,0,0,.15); }
+      .nav-links.open { display: flex; }
+      .hamburger { display: flex; }
+      .top-bar { justify-content: center; text-align: center; }
+      .footer-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+      .programs-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-bar">
+    <div class="top-bar-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      <a href="mailto:info@kaysvillepto.us">info@kaysvillepto.us</a>
+    </div>
+    <div class="top-bar-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      <a href="http://kaysvillepto.us/" target="_blank" rel="noopener">kaysvillepto.us</a>
+    </div>
+  </div>
+
+  <nav class="navbar" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a class="nav-brand" href="index.html">
+        <div class="nav-logo-icon" aria-hidden="true">🍎</div>
+        <span>Kaysville Elementary PTO</span>
+      </a>
+      <button class="hamburger" aria-label="Toggle navigation" aria-expanded="false" onclick="toggleNav(this)">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks" role="list">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="mission.html">Mission</a></li>
+        <li><a href="history.html">History</a></li>
+        <li><a href="projects.html" class="active">Programs</a></li>
+        <li><a href="team.html">Team</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="page-hero">
+    <div class="page-hero-badge">What We Run</div>
+    <h1>Our Programs &amp; Events</h1>
+    <p>Year-round initiatives that enrich the learning environment and celebrate our school community.</p>
+  </div>
+
+  <!-- PROGRAMS GRID -->
+  <section class="programs-section">
+    <div class="section-inner">
+      <div class="section-label">All Programs</div>
+      <h2 class="section-title">How We Make a Difference</h2>
+      <p style="color:var(--color-text-light); margin-bottom:2.5rem; max-width:580px; font-size:1rem;">From classroom grants to community carnivals, every program is designed to put students first and strengthen the bonds between families and teachers.</p>
+      <div class="programs-grid">
+
+        <div class="program-card fade-in">
+          <div class="program-thumb">🏃</div>
+          <div class="program-body">
+            <span class="program-tag">Annual Event</span>
+            <h3>Fun Run &amp; Fundraiser</h3>
+            <p>Our biggest event of the year! Students collect pledges and complete laps around the school track. The Fun Run combines healthy activity with the PTO's most important fundraising effort.</p>
+            <div class="program-impact"><strong>500+</strong>&nbsp;students participate each year</div>
+            <a href="#" class="btn-card">Learn More</a>
+          </div>
+        </div>
+
+        <div class="program-card fade-in">
+          <div class="program-thumb">📚</div>
+          <div class="program-body">
+            <span class="program-tag">Year-Round</span>
+            <h3>Classroom Grants Program</h3>
+            <p>Teachers apply for mini-grants to purchase books, supplies, and materials that go beyond the standard budget. Every dollar helps turn classroom ideas into real learning experiences.</p>
+            <div class="program-impact"><strong>30+</strong>&nbsp;teachers supported annually</div>
+            <a href="#" class="btn-card">Learn More</a>
+          </div>
+        </div>
+
+        <div class="program-card fade-in">
+          <div class="program-thumb">🍎</div>
+          <div class="program-body">
+            <span class="program-tag">Annual Event</span>
+            <h3>Teacher Appreciation Week</h3>
+            <p>One full week dedicated to honoring the incredible educators and staff at Kaysville Elementary. Volunteers coordinate meals, gifts, and heartfelt notes from students and families.</p>
+            <div class="program-impact"><strong>35+</strong>&nbsp;staff members celebrated</div>
+            <a href="#" class="btn-card">Learn More</a>
+          </div>
+        </div>
+
+        <div class="program-card fade-in">
+          <div class="program-thumb">📖</div>
+          <div class="program-body">
+            <span class="program-tag">Year-Round</span>
+            <h3>Reading Incentive Program</h3>
+            <p>Students log reading minutes throughout the year to earn rewards and recognition. The program encourages a love of reading at home and in the classroom.</p>
+            <div class="program-impact"><strong>1,000+</strong>&nbsp;books read each school year</div>
+            <a href="#" class="btn-card">Learn More</a>
+          </div>
+        </div>
+
+        <div class="program-card fade-in">
+          <div class="program-thumb">🎭</div>
+          <div class="program-body">
+            <span class="program-tag">Enrichment</span>
+            <h3>Arts &amp; Music Enrichment</h3>
+            <p>The PTO funds assemblies, performances, and arts experiences that inspire creativity. From in-school concerts to visiting artists, we believe arts education matters for every child.</p>
+            <div class="program-impact"><strong>All students</strong>&nbsp;participate each semester</div>
+            <a href="#" class="btn-card">Learn More</a>
+          </div>
+        </div>
+
+        <div class="program-card fade-in">
+          <div class="program-thumb">🚌</div>
+          <div class="program-body">
+            <span class="program-tag">Support</span>
+            <h3>Field Trip Assistance</h3>
+            <p>We partner with teachers to help fund field trips and ensure that every student can participate regardless of their family's financial situation. No child misses out.</p>
+            <div class="program-impact"><strong>No student</strong>&nbsp;is ever left behind</div>
+            <a href="#" class="btn-card">Learn More</a>
+          </div>
+        </div>
+
+        <div class="program-card fade-in">
+          <div class="program-thumb">🎃</div>
+          <div class="program-body">
+            <span class="program-tag">Seasonal Event</span>
+            <h3>Fall Harvest Festival</h3>
+            <p>A beloved fall tradition where families gather for games, crafts, costumes, and community fun. The Harvest Festival kicks off the school year with excitement and connection.</p>
+            <div class="program-impact"><strong>Hundreds</strong>&nbsp;of families attend</div>
+            <a href="#" class="btn-card">Learn More</a>
+          </div>
+        </div>
+
+        <div class="program-card fade-in">
+          <div class="program-thumb">⭐</div>
+          <div class="program-body">
+            <span class="program-tag">Recognition</span>
+            <h3>Student of the Month</h3>
+            <p>Each month, teachers nominate students who exemplify Kaysville Elementary's core values. Honorees are recognized at assemblies and celebrated with their families and peers.</p>
+            <div class="program-impact"><strong>10</strong>&nbsp;students honored every month</div>
+            <a href="#" class="btn-card">Learn More</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FUNDRAISING BANNER -->
+  <section class="fundraising">
+    <div class="section-inner">
+      <div class="fund-banner fade-in">
+        <div class="fund-text">
+          <h2>Every Dollar Goes Back to Our Kids</h2>
+          <p>The Kaysville Elementary PTO is a registered 501(c)(3) nonprofit. All funds raised through our programs and events are reinvested directly into programs that benefit Kaysville students and staff. Donations are tax-deductible.</p>
+          <a href="contact.html" class="btn-fund">Support Our Programs</a>
+        </div>
+        <div class="fund-stats">
+          <div class="fund-stat"><div class="num">100%</div><div class="lbl">Funds to Students</div></div>
+          <div class="fund-stat"><div class="num">501c3</div><div class="lbl">Tax-Exempt Status</div></div>
+          <div class="fund-stat"><div class="num">8+</div><div class="lbl">Active Programs</div></div>
+          <div class="fund-stat"><div class="num">500+</div><div class="lbl">Students Served</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3>Kaysville Elementary PTO</h3>
+          <p>Supporting students, teachers, and families at Kaysville Elementary School in Kaysville, Utah.</p>
+          <div class="social-links">
+            <a href="#" class="social-icon" aria-label="Facebook">f</a>
+            <a href="#" class="social-icon" aria-label="Instagram">&#9424;</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Pages</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="mission.html">Mission</a></li>
+            <li><a href="history.html">History</a></li>
+            <li><a href="projects.html">Programs</a></li>
+            <li><a href="team.html">Team</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="mailto:info@kaysvillepto.us">info@kaysvillepto.us</a></li>
+            <li><a href="#">50 N 100 E</a></li>
+            <li><a href="#">Kaysville, UT 84037</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Organization</h4>
+          <ul>
+            <li><a href="#">EIN: 99-3677288</a></li>
+            <li><a href="#">501(c)(3) Nonprofit</a></li>
+            <li><a href="http://kaysvillepto.us/" target="_blank" rel="noopener">kaysvillepto.us</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2025 Kaysville Elementary PTO. All rights reserved.</span>
+        <span>EIN 99-3677288 &mdash; Registered 501(c)(3) Nonprofit</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function toggleNav(btn) {
+      const nav = document.getElementById('navLinks');
+      const open = nav.classList.toggle('open');
+      btn.classList.toggle('open', open);
+      btn.setAttribute('aria-expanded', open);
+    }
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
